@@ -17,6 +17,14 @@ const Statistic = ({ name, value, unit }) => {
 }
 
 const Statistics = ({ statistics }) => {
+  if (statistics.all == 0) {
+    return (
+      <div>
+        <Header text={statistics.statisticsHeaderText} />
+        No feedback given
+      </div>
+    )
+  }
   return (
     <div>
       <Header text={statistics.statisticsHeaderText} />
