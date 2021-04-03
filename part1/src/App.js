@@ -8,10 +8,10 @@ const Header = ({text}) => {
   return <h1>{text}</h1>
 }
 
-const Statistic = ({name, value}) => {
+const Statistics = ({name, value, unit}) => {
   return ( 
   <div>
-    {name} {value}
+    {name} {value} {unit}
   </div> )
 }
 
@@ -22,22 +22,40 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [all, setAll] = useState(0)
+  const [average, setAverage] = useState(0)
+  const [positive, setPositive] = useState(0)
 
   const goodVote = () => {
-    return setGood(good + 1)
+    setGood(good + 1)
+    setAll(all + 1)
+    setAverage((good - bad + 1) / (all + 1))
+    setPositive((good + 1) / (all + 1) * 100)
   }
   const badVote = () => {
-    return setBad(bad + 1)
+    setBad(bad + 1)
+    setAll(all + 1)
+    setAverage((good - bad - 1) / (all + 1))
+    setPositive(good / (all + 1) * 100)
   }
   const neutralVote = () => {
-    return setNeutral(neutral + 1)
+    setNeutral(neutral + 1)
+    setAll(all + 1)
+    setAverage((good - bad) / (all + 1))
+    setPositive(good / (all + 1) * 100)
   }
+
   const feedbackText = "give feedback"
   const statisticsHeaderText = "statistics"
 
   const goodText = "good"
   const badText = "bad"
   const neutralText = "neutral"
+  const allText = "all"
+  const averageText = "average"
+  const positiveText = "positive"
+
+  
 
   return (
     <>
@@ -49,9 +67,13 @@ const App = () => {
       </div>
       <div>
       <Header text={statisticsHeaderText}/>
-      <Statistic name={goodText} value={good}/>
-      <Statistic name={neutralText} value={neutral}/>
-      <Statistic name={badText} value={bad}/>
+      <Statistics name={goodText} value={good}/>
+      <Statistics name={neutralText} value={neutral}/>
+      <Statistics name={badText} value={bad}/>
+      <Statistics name={allText} value={all}/>
+      <Statistics name={averageText} value={average}/>
+      <Statistics name={positiveText} value={positive} unit="%"/>
+
     </div>
     </>
   )
