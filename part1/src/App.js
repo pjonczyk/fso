@@ -1,21 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
-const Button = ({handleClick, text}) => {
+const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>
 }
 
-const Header = ({text}) => {
+const Header = ({ text }) => {
   return <h1>{text}</h1>
 }
 
-const Statistics = ({name, value, unit}) => {
-  return ( 
-  <div>
-    {name} {value} {unit}
-  </div> )
+const Statistic = ({ name, value, unit }) => {
+  return (
+    <div>
+      {name} {value} {unit}
+    </div>
+  )
 }
 
-
+const Statistics = ({ statistics }) => {
+  return (
+    <div>
+      <Header text={statistics.statisticsHeaderText} />
+      <Statistic name="good" value={statistics.good} />
+      <Statistic name="neutral" value={statistics.neutral} />
+      <Statistic name="bad" value={statistics.bad} />
+      <Statistic name="all" value={statistics.all} />
+      <Statistic name="average" value={statistics.average} />
+      <Statistic name="positive" value={statistics.positive} unit="%" />
+    </div>
+  )
+}
 
 const App = () => {
   // save clicks of each button to its own state
@@ -30,52 +43,40 @@ const App = () => {
     setGood(good + 1)
     setAll(all + 1)
     setAverage((good - bad + 1) / (all + 1))
-    setPositive((good + 1) / (all + 1) * 100)
+    setPositive(((good + 1) / (all + 1)) * 100)
   }
   const badVote = () => {
     setBad(bad + 1)
     setAll(all + 1)
     setAverage((good - bad - 1) / (all + 1))
-    setPositive(good / (all + 1) * 100)
+    setPositive((good / (all + 1)) * 100)
   }
   const neutralVote = () => {
     setNeutral(neutral + 1)
     setAll(all + 1)
     setAverage((good - bad) / (all + 1))
-    setPositive(good / (all + 1) * 100)
+    setPositive((good / (all + 1)) * 100)
   }
 
   const feedbackText = "give feedback"
-  const statisticsHeaderText = "statistics"
 
-  const goodText = "good"
-  const badText = "bad"
-  const neutralText = "neutral"
-  const allText = "all"
-  const averageText = "average"
-  const positiveText = "positive"
-
-  
-
+  const statistics = {
+    statisticsHeaderText: "statistics",
+    good: good,
+    bad: bad,
+    neutral: neutral,
+    all: all,
+    average: average,
+    positive: positive,
+  }
   return (
-    <>
     <div>
-      <Header text={feedbackText}/>
-      <Button handleClick={goodVote} text="good"/>
-      <Button handleClick={neutralVote} text="neutral"/>
-      <Button handleClick={badVote} text="bad"/>
-      </div>
-      <div>
-      <Header text={statisticsHeaderText}/>
-      <Statistics name={goodText} value={good}/>
-      <Statistics name={neutralText} value={neutral}/>
-      <Statistics name={badText} value={bad}/>
-      <Statistics name={allText} value={all}/>
-      <Statistics name={averageText} value={average}/>
-      <Statistics name={positiveText} value={positive} unit="%"/>
-
+      <Header text={feedbackText} />
+      <Button handleClick={goodVote} text="good" />
+      <Button handleClick={neutralVote} text="neutral" />
+      <Button handleClick={badVote} text="bad" />
+      <Statistics statistics={statistics} />
     </div>
-    </>
   )
 }
 
