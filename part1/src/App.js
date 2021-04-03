@@ -17,17 +17,11 @@ const Statistic = ({ name, value, unit }) => {
 }
 
 const Statistics = ({ statistics }) => {
-  if (statistics.all == 0) {
-    return (
-      <div>
-        <Header text={statistics.statisticsHeaderText} />
-        No feedback given
-      </div>
-    )
+  if (statistics.all === 0) {
+    return <div>No feedback given</div>
   }
   return (
     <div>
-      <Header text={statistics.statisticsHeaderText} />
       <Statistic name="good" value={statistics.good} />
       <Statistic name="neutral" value={statistics.neutral} />
       <Statistic name="bad" value={statistics.bad} />
@@ -67,9 +61,9 @@ const App = () => {
   }
 
   const feedbackText = "give feedback"
+  const statisticsHeaderText = "statistics"
 
   const statistics = {
-    statisticsHeaderText: "statistics",
     good: good,
     bad: bad,
     neutral: neutral,
@@ -83,6 +77,7 @@ const App = () => {
       <Button handleClick={goodVote} text="good" />
       <Button handleClick={neutralVote} text="neutral" />
       <Button handleClick={badVote} text="bad" />
+      <Header text={statisticsHeaderText} />
       <Statistics statistics={statistics} />
     </div>
   )
