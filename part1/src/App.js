@@ -8,27 +8,40 @@ const Header = ({ text }) => {
   return <h1>{text}</h1>
 }
 
-const Statistic = ({ name, value, unit }) => {
-  return (
-    <div>
-      {name} {value} {unit}
-    </div>
-  )
-}
-
 const Statistics = ({ statistics }) => {
   if (statistics.all === 0) {
     return <div>No feedback given</div>
   }
+
   return (
-    <div>
-      <Statistic name="good" value={statistics.good} />
-      <Statistic name="neutral" value={statistics.neutral} />
-      <Statistic name="bad" value={statistics.bad} />
-      <Statistic name="all" value={statistics.all} />
-      <Statistic name="average" value={statistics.average} />
-      <Statistic name="positive" value={statistics.positive} unit="%" />
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>good</td>
+          <td>{statistics.good}</td>
+        </tr>
+        <tr>
+          <td>neutral</td>
+          <td>{statistics.neutral}</td>
+        </tr>
+        <tr>
+          <td>bad</td>
+          <td>{statistics.bad}</td>
+        </tr>
+        <tr>
+          <td>all</td>
+          <td>{statistics.all}</td>
+        </tr>
+        <tr>
+          <td>average</td>
+          <td>{statistics.average}</td>
+        </tr>
+        <tr>
+          <td>positive</td>
+          <td>{statistics.positive} %</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
